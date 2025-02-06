@@ -97,7 +97,7 @@ form {
 .btn {
     width: 100%;
     height: 48px;
-    background: #b871ff;
+    background: #9227fc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     border: none;
@@ -109,7 +109,7 @@ form {
 }
 
 .btn:hover {
-    background: #b871ff; 
+    background: #9227fc; 
     color: #ECF0F1; 
     transform: scale(1.05); 
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -127,7 +127,7 @@ form {
     left: -250%;
     width: 300%;
     height: 100%;
-    background: #b871ff;
+    background: #9227fc;
     border-radius: 150px;
     z-index: 2;
     transition: 1.8s ease-in-out;
@@ -186,6 +186,6 @@ form {
 
 .toggle-panel .btn:hover {
     background: #fff; 
-    color: #b871ff; 
+    color: #9227fc; 
     transform: scale(1.1); 
 }

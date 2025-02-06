@@ -82,10 +82,10 @@ if (isset($_GET['id'])) {
                 <p><?php echo $barang['deskripsi']; ?></p>
                 <ul>
                     <li>Produk Masuk: <span><?php echo $barang['tanggal_masuk']; ?></span></li>
-                    <li>Stok: <span><?php echo $barang['jumlah'] > 0 ? 'Tersedia' : 'Habis'; ?></span></li>
+                    <li>Stok: <span><?php echo $barang['jumlah'] > 0 ? $barang['jumlah'] . ' (Tersedia)' : 'Kosong'; ?></span></li>
                     <li>Category: <span><?php echo $barang['kategori']; ?></span></li>
+                    <li>Kondisi: <span><?php echo $barang['kondisi']; ?></span></li>
                     <li>Area: <span><?php echo $barang['lokasi']; ?></span></li>
-                    <li>Biaya Pengiriman: <span>Gratis</span></li>
                 </ul>
             </div>
         </div>

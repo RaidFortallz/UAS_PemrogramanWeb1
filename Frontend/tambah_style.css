@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #9227fc;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background: #FFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.row .col-md-3 {
+    flex: 1;
+    padding-right: 10px;
+}
+
+.row .col-md-3:last-child {
+    flex: 2;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.row .col-md-6 {
+    flex: 1;
+    padding-right: 10px;
+}
+
+button[type="submit"] {
+    width: auto;
+    padding: 10px 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ff5733;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+}
+
+a.btn-secondary {
+    position: absolute;
+    margin-top: 50px;
+    left: 80px;
+    top: 20px;
+    background-color: #6c757d;
+    color: white;
+    font-weight: bold;
+}
+
+button[type="submit"]:hover {
+    background-color: #e64a19;
+}
+
+button:hover {
+    background-color: #e64a19;
+}
+
+a.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.uploaded-images img {
+    max-width: 100px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.uploaded-images {
+    margin-top: 10px;
+}
+
+.uploaded-images .cancel-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}

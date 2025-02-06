@@ -121,7 +121,7 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
             if (scrollTop > lastScrollTop) {
-                navbar.style.top = '-70px'; // Adjust according to the height of your navbar
+                navbar.style.top = '-70px'; 
             } else {
                 navbar.style.top = '0';
             }
