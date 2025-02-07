@@ -101,9 +101,6 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <footer id="footer" class="text-white text-center pb-4 mt-5">
         <img src="../img/wave2.png" class="img_footer img-fluid" alt="image">
         <p class="mt-5 mb-2">&copy;Copyright by 22552011263_KELOMPOK 5_M Dimas Daniswara Putra_TIF RP 22 CNS_UASWEB1</p>
-        <p class="mb-2">&copy;Copyright by 22552011263_KELOMPOK 5_M Dimas Daniswara Putra_TIF RP 22 CNS_UASWEB1</p>
-        <p class="mb-2">&copy;Copyright by 22552011263_KELOMPOK 5_M Dimas Daniswara Putra_TIF RP 22 CNS_UASWEB1</p>
-        <p class="mb-2">&copy;Copyright by 22552011263_KELOMPOK 5_M Dimas Daniswara Putra_TIF RP 22 CNS_UASWEB1</p>
     </footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

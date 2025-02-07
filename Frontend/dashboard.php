@@ -5,6 +5,8 @@ $query = "SELECT * FROM tb_barang";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+include '../Backend/pagination.php'
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +52,7 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="#" class="sidebar-link" onclick="window.location.href='edit_grid.php'">
                                 Edit Barang
                             </a>
                         </li>
@@ -222,6 +224,25 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
+
+                                        <!-- PAGINATION -->
+                                            <nav>
+                                                <ul class="pagination justify-content-center">
+                                                    <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                                                        <a class="page-link" href="?page=<?= $page - 1 ?>">Previous</a>
+                                                    </li>
+                                                    <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                                                        <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                                                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                                                        </li>
+                                                    <?php endfor; ?>
+                                                    <li class="page-item <?= ($page >= $totalPages) ? 'disabled' : '' ?>">
+                                                        <a class="page-link" href="?page=<?= $page + 1 ?>">Next</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -266,6 +287,7 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="dashboard_js.js"></script>
 </body>
 </html>
