@@ -7,12 +7,15 @@ include 'koneksi.php';
 
 try {
     
+    error_log(print_r($_POST, true));
+
     $username = isset($_POST['user']) ? $_POST['user'] : '';
     $password = isset($_POST['pwd']) ? $_POST['pwd'] : '';
     $name = isset($_POST['name']) ? $_POST['name'] : '';
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
 
-    if (empty($username) || empty($password) || empty($name)) {
-        echo json_encode(["status" => "error", "message" => "Username, password, dan nama wajib diisi"]);
+    if (empty($username) || empty($password) || empty($name) || empty($email)) {
+        echo json_encode(["status" => "error", "message" => "Username, password, nama, dan email wajib diisi"]);
         exit;
     }
 
@@ -29,8 +32,8 @@ try {
     }
 
     
-    $insert = $conn->prepare("INSERT INTO users (username, password, name) VALUES (?, ?, ?)");
-    $insert->execute([$username, $hashedPassword, $name]);
+    $insert = $conn->prepare("INSERT INTO users (username, password, name, email) VALUES (?, ?, ?, ?)");
+    $insert->execute([$username, $hashedPassword, $name, $email]);
 
     if ($insert->rowCount() > 0) {
         echo json_encode(["status" => "success", "message" => "Pendaftaran berhasil"]);

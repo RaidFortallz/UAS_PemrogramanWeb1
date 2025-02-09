@@ -6,24 +6,23 @@ header("Access-Control-Allow-Methods: POST");
 include 'koneksi.php';
 
 try {
-    
     $session_token = isset($_POST['session_token']) ? $_POST['session_token'] : '';
 
-    
     if (empty($session_token)) {
         echo json_encode(["status" => "error", "message" => "Session token wajib diisi"]);
         exit;
     }
 
-
-    $query = $conn->prepare("SELECT name FROM users WHERE session_token = ?");
+    $query = $conn->prepare("SELECT name, username, email FROM users WHERE session_token = ?");
     $query->execute([$session_token]);
     $user = $query->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
         echo json_encode([
             "status" => "success",
-            "name" => $user['name']
+            "name" => $user['name'],
+            "username" => $user['username'],
+            "email" => $user['email'],
         ]);
     } else {
         echo json_encode(["status" => "error", "message" => "Session token tidak valid"]);

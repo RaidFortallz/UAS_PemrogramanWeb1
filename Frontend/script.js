@@ -56,8 +56,14 @@ const handleRegister = (e) => {
     const username = document.getElementById('regUsername').value;
     const password = document.getElementById('regPassword').value;
     const name = document.getElementById('regName').value;
+    const email = document.getElementById('regEmail').value;
 
-    if (!username || !password || !name) {
+    console.log("Username:", username);
+    console.log("Password:", password);
+    console.log("Name:", name);
+    console.log("Email:", email);
+    
+    if (!username || !password || !name || !email) {
         alert("Semua field harus diisi!");
         return;
     }
@@ -66,6 +72,7 @@ const handleRegister = (e) => {
     formData.append("user", username);
     formData.append("pwd", password);
     formData.append("name", name);
+    formData.append("email", email);
 
     axios.post('../Backend/proses_register.php', formData)
         .then(response => {

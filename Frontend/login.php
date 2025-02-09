@@ -70,6 +70,10 @@
                 <i class='bx bxs-user-pin'></i>
                 </div>
                 <div class="input-box">
+                <input type="text" id="regEmail" placeholder="Email" required>
+                <i class='bx bxs-envelope'></i>
+                </div>
+                <div class="input-box">
                 <input type="password" id="regPassword" placeholder="Password" required>
                 <i class='bx bxs-lock-alt'></i>
                 </div>

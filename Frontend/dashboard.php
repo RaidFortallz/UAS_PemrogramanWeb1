@@ -6,7 +6,6 @@ $stmt = $conn->prepare($query);
 $stmt->execute();
 $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-include '../Backend/pagination.php'
 ?>
 
 <!DOCTYPE html>
@@ -86,11 +85,13 @@ include '../Backend/pagination.php'
         </aside>
         <div class="main">
             <nav class="navbar navbar-expand px-4 py-3">
-                <form action="#" class="d-none d-sm-inline-block">
+            <form action="#" class="d-none d-sm-inline-block">
                     <div class="input-group input-group-navbar">
-                        <input type="text" class="form-control border-0 rounded-0 pe-0" placeholder="Cari..." aria-label="Search" data-aos="fade-right" data-aos-duration="1400">
+                        <input type="text" class="form-control border-0 rounded-0 pe-0" 
+                            id="search-barang" placeholder="Cari..." 
+                            aria-label="Search" data-aos="fade-right" data-aos-duration="1400">
                         <button class="btn border-0 rounded-0" type="button" data-aos="fade-left" data-aos-duration="1400">
-                        <i class='bx bx-search'></i>    
+                            <i class='bx bx-search'></i>    
                         </button>
                     </div>
                 </form>
@@ -101,7 +102,7 @@ include '../Backend/pagination.php'
                                 <img src="../img/account.png" class="avatar img-fluid" alt="" data-aos="slide-down" data-aos-duration="1400">
                             </a>
                             <div class="dropdown-menu dropdown-menu-end rounded-0 border-0 shadow mt-3">
-                                <a href="#" class="dropdown-item">
+                                <a href="#" class="dropdown-item" onclick="window.location.href='profile.php'">
                                 <i class='bx bxs-user-account'></i>
                                     <span>Profile</span>
                                  </a>
@@ -192,56 +193,10 @@ include '../Backend/pagination.php'
                                 <h3 class="fw-bold fs-4 my-3">Data Inventaris Barang</h3>
                                 <div class="table-container">
                                     <div class="table-responsive"> 
-                                        <table class="table table-striped table-hover table-bordered text-center">
-                                            <thead class="table-dark">
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Kategori</th>
-                                                    <th>Jumlah</th>
-                                                    <th>Kondisi</th>
-                                                    <th>Lokasi</th>
-                                                    <th>Gambar</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $no = 1; ?>
-                                                <?php foreach ($barang as $item) : ?>
-                                                    <tr>
-                                                        <td><?= $no++; ?></td> <!-- Nomor urut -->
-                                                        <td><?= htmlspecialchars($item['nama_barang']); ?></td>
-                                                        <td><?= htmlspecialchars($item['kategori']); ?></td>
-                                                        <td><?= htmlspecialchars($item['jumlah']); ?></td>
-                                                        <td><?= htmlspecialchars($item['kondisi']); ?></td>
-                                                        <td><?= htmlspecialchars($item['lokasi']); ?></td>
-                                                        <td>
-                                                            <img src="../uploads/<?= htmlspecialchars($item['gambar']); ?>" class="table-img" alt="Gambar">
-                                                        </td>
-                                                        <td>
-                                                            <a href="detail.php?id=<?= $item['id']; ?>" class="btn btn-info btn-sm">Detail</a>
-                                                        </td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-
-                                        <!-- PAGINATION -->
-                                            <nav>
-                                                <ul class="pagination justify-content-center">
-                                                    <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-                                                        <a class="page-link" href="?page=<?= $page - 1 ?>">Previous</a>
-                                                    </li>
-                                                    <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                                                        <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                                                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                                                        </li>
-                                                    <?php endfor; ?>
-                                                    <li class="page-item <?= ($page >= $totalPages) ? 'disabled' : '' ?>">
-                                                        <a class="page-link" href="?page=<?= $page + 1 ?>">Next</a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
+                                        
+                                    <div id="data-table">
+                                        <!-- Data tabel akan dimuat dari pagination.php -->
+                                    </div>
 
 
                                     </div>
@@ -284,6 +239,7 @@ include '../Backend/pagination.php'
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ offset: 1 });
@@ -296,7 +252,7 @@ include '../Backend/pagination.php'
             window.location.href = 'login.php';
         } else {
             // Jika session_token ada, tampilkan nama pengguna
-            const userName = localStorage.getItem('nama');
+            const userName = localStorage.getItem('username');
             if (userName) {
                 document.getElementById('nama_user').textContent = 'Halo, ' + userName + '!'; 
             } else {
@@ -338,6 +294,66 @@ include '../Backend/pagination.php'
                     alert('Terjadi kesalahan pada server.');
                 });
         });
+
+       
+
+
+        function loadTable(url, params = {}) {
+    var currentScroll = window.scrollY; 
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        data: params,
+        success: function(response) {
+            $("#data-table").html(response);
+            window.scrollTo(0, currentScroll);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error loading table:", error);
+        }
+    });
+}
+
+// Definisikan loadPage terlebih dahulu
+window.loadPage = function (page) {
+    loadTable("../Backend/pagination.php", { page: page });
+};
+
+// Setelah loadPage dideklarasikan, baru dipanggil
+$(document).ready(function() {
+    loadPage(1); // Panggil setelah fungsi sudah ada
+
+    $("#search").on("keyup", function () {
+        let searchText = $(this).val().trim();
+        if (searchText === "") {
+            loadTable("../Backend/pagination.php"); // Kembali ke pagination jika kosong
+        } else {
+            loadTable("../Backend/cari_barang.php", { search: searchText });
+        }
+    });
+});
+
+document.getElementById("search-barang").addEventListener("input", function () {
+    let keyword = this.value.trim();
+    console.log("Keyword:", keyword); // Debugging output
+
+    if (keyword.length > 0) {
+        axios.get(`../Backend/pagination.php?search=${keyword}`)
+            .then(response => {
+                console.log(response.data); // Cek data yang diterima dari backend
+                document.getElementById("data-table").innerHTML = response.data;
+            })
+            .catch(error => console.error("Error:", error));
+    } else {
+        axios.get("../Backend/pagination.php")
+            .then(response => document.getElementById("data-table").innerHTML = response.data)
+            .catch(error => console.error("Error:", error));
+    }
+});
+
+
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

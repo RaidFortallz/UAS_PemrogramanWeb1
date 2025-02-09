@@ -62,8 +62,8 @@ $barangRusak = $conn->query("SELECT COUNT(*) FROM tb_barang WHERE kondisi = 'Rus
         <div class="container">
             <div class="row content">
                 <div class="col-md-6 mt-5 ps-5" data-aos="fade-right" data-aos-duration="1400">
-                    <p class="fs-1 fw-semibold">SELAMAT DATANG</p>
-                    <p class="fs-5">Ini adalah Halaman Menu Utama dari Inventaris Barang</p>
+                    <p class="fs-1 fw-semibold">SELAMAT DATANG di StokKu</p>
+                    <p class="fs-5">Kelola stok dengan mudah, cepat, dan akurat. Pastikan bisnis Anda tetap berjalan lancar tanpa kekhawatiran akan kehabisan barang!</p>
                 </div>
                 <div class="col-md-6 text-center" data-aos="zoom-in" data-aos-duration="1400">
                     <img src="../img/inventory.png" class="img_home img-fluid" alt="image">
@@ -81,9 +81,9 @@ $barangRusak = $conn->query("SELECT COUNT(*) FROM tb_barang WHERE kondisi = 'Rus
         </div>
         <div class="col-md-7" data-aos="fade-left">
             <div class="p-4">
-                <h3 class="fw-bold">Tentang Sistem Inventaris</h3>
+                <h3 class="fw-bold">Tentang StokKu</h3>
                 <p class="fs-5 text-start">
-                    Sistem Inventaris Barang ini dirancang untuk membantu dalam pencatatan, pengelolaan, dan 
+                    Sistem Inventaris Barang StokKu ini dirancang untuk membantu dalam pencatatan, pengelolaan, dan 
                     pemantauan barang secara efisien. Dengan fitur pencarian cepat, statistik real-time, dan 
                     tampilan data yang rapi, Anda dapat dengan mudah melacak kondisi serta jumlah barang yang tersedia.
                 </p>
@@ -127,47 +127,9 @@ $barangRusak = $conn->query("SELECT COUNT(*) FROM tb_barang WHERE kondisi = 'Rus
         <div class="container mt-5">
             <h2 class="text-center mb-4">Daftar Barang Inventaris</h2>
             
-            <div class="input-group mb-3" style="max-width: 300px;">
-                <span class="input-group-text"><i class="bi bi-search"></i></span>
-                <input class="form-control w-50" id="searchBox" type="text" placeholder="Cari Barang..." />
-            </div>
-
-            <div class="table-container">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover table-bordered text-center">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>Nama Barang</th>
-                                <th>Kategori</th>
-                                <th>Jumlah</th>
-                                <th>Kondisi</th>
-                                <th>Lokasi</th>
-                                <th>Gambar</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="barangTable">
-                            <?php foreach ($barang as $item) : ?>
-                                <tr class="<?= $item['jumlah'] < 5 ? 'table-warning' : '' ?>">
-                                    <td><?= htmlspecialchars($item['id']); ?></td>
-                                    <td><?= htmlspecialchars($item['nama_barang']); ?></td>
-                                    <td><?= htmlspecialchars($item['kategori']); ?></td>
-                                    <td><?= htmlspecialchars($item['jumlah']); ?></td>
-                                    <td><?= htmlspecialchars($item['kondisi']); ?></td>
-                                    <td><?= htmlspecialchars($item['lokasi']); ?></td>
-                                    <td>
-                                        <img src="../uploads/<?= htmlspecialchars($item['gambar']); ?>" class="table-img" alt="Gambar">
-                                    </td>
-                                    <td>
-                                        <a href="detail.php?id=<?= $item['id']; ?>" class="btn btn-info btn-sm">Detail</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <div id="data-table">
+        <!-- Data tabel akan dimuat dari pagination.php -->
+    </div>
         </div>
     </section>
 
@@ -198,20 +160,12 @@ $barangRusak = $conn->query("SELECT COUNT(*) FROM tb_barang WHERE kondisi = 'Rus
         <p class="mt-5 mb-2">&copy;Copyright by Kelompok 5</p>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ offset: 1 });
 
-        // Pencarian Barang
-        document.getElementById("searchBox").addEventListener("keyup", function() {
-            let search = this.value.toLowerCase();
-            let rows = document.querySelectorAll("#barangTable tr");
-
-            rows.forEach(row => {
-                let text = row.innerText.toLowerCase();
-                row.style.display = text.includes(search) ? "" : "none";
-            });
-        });
+        
 
         document.addEventListener("DOMContentLoaded", function () {
     const namaUser = localStorage.getItem("nama");
@@ -228,6 +182,28 @@ $barangRusak = $conn->query("SELECT COUNT(*) FROM tb_barang WHERE kondisi = 'Rus
         loginLink.style.display = "block";  // Tampilkan login
     }
 });
+
+        $(document).ready(function() {
+            loadPage(1);
+        });
+
+
+        function loadPage(page) {
+            var currentScroll = window.scrollY; 
+
+            $.ajax({
+                url: "../Backend/pagination.php",
+                type: "GET",
+                data: { page: page },
+                success: function(response) {
+                    $("#data-table").html(response);
+                    window.scrollTo(0, currentScroll); 
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error loading page:", error);
+                }
+            });
+        }
 
     </script>
 </body>
