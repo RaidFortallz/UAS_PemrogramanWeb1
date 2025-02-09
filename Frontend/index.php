@@ -41,7 +41,16 @@ $barangRusak = $conn->query("SELECT COUNT(*) FROM tb_barang WHERE kondisi = 'Rus
                         <li class="nav-item"><a class="nav-link active" href="#banner">HOME</a></li>
                         <li class="nav-item"><a class="nav-link" href="#tabel">TABEL</a></li>
                         <li class="nav-item"><a class="nav-link" href="#footer">CONTACT</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../Frontend/login.php">LOGIN</a></li>
+                        <li class="nav-item" id="dashboardLink" style="display: none;">
+                            <a class="nav-link btn btn-primary text-white px-3" href="../Frontend/dashboard.php">
+                                <i class="bi bi-person-circle"></i> DASHBOARD
+                            </a>
+                        </li>
+                        <li class="nav-item" id="loginLink">
+                            <a class="nav-link btn btn-outline-primary px-3" href="../Frontend/login.php">
+                                <i class="bi bi-box-arrow-in-right"></i> LOGIN
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -203,6 +212,23 @@ $barangRusak = $conn->query("SELECT COUNT(*) FROM tb_barang WHERE kondisi = 'Rus
                 row.style.display = text.includes(search) ? "" : "none";
             });
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const namaUser = localStorage.getItem("nama");
+    const dashboardLink = document.getElementById("dashboardLink");
+    const loginLink = document.getElementById("loginLink");
+
+    if (namaUser) {
+        // Jika user sudah login (ada nama di localStorage)
+        dashboardLink.style.display = "block";  // Tampilkan dashboard
+        loginLink.style.display = "none";  // Sembunyikan login
+    } else {
+        // Jika belum login
+        dashboardLink.style.display = "none";  // Sembunyikan dashboard
+        loginLink.style.display = "block";  // Tampilkan login
+    }
+});
+
     </script>
 </body>
 </html>

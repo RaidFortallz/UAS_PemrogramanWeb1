@@ -19,7 +19,7 @@ const handleLogin = (e) => {
     formData.append("pwd", password);
 
     
-    axios.post('https://nova-agustina.my.id/22cns/M%20Dimas%20Daniswara%20Putra/Pertemuan10-11/Backend/proses_login.php', formData)
+    axios.post('../Backend/proses_login.php', formData)
         .then(response => {
             console.log(typeof response.data);
             console.log('Response', response.data);
@@ -32,7 +32,7 @@ const handleLogin = (e) => {
                 localStorage.setItem('session_token', response.data.session_token);
                 localStorage.setItem('nama', response.data.hasil.name);
                 
-                window.location.href = 'https://nova-agustina.my.id/22cns/M%20Dimas%20Daniswara%20Putra/Pertemuan10-11/Backend/kelola.php';
+                window.location.href = 'dashboard.php';
 
                 } else {
                     console.log('Nama tidak ditemukan');
@@ -67,7 +67,7 @@ const handleRegister = (e) => {
     formData.append("pwd", password);
     formData.append("name", name);
 
-    axios.post('https://nova-agustina.my.id/22cns/M%20Dimas%20Daniswara%20Putra/Pertemuan10-11/Backend/proses_register.php', formData)
+    axios.post('../Backend/proses_register.php', formData)
         .then(response => {
             if (response.data.status === 'success') {
                 alert('Pendaftaran berhasil');

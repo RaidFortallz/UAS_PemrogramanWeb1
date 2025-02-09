@@ -78,7 +78,7 @@ include '../Backend/pagination.php'
                 </li>
             </ul>
             <div class="sidebar-footer">
-                <a href="#" class="sidebar-link">
+                <a href="#" id="logout" class="sidebar-link">
                 <i class='bx bx-log-out'></i>
                 <span>Logout</span>
                 </a>
@@ -110,7 +110,7 @@ include '../Backend/pagination.php'
                                     <span>About</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
+                                <a href="#" id="logout" class="dropdown-item">
                                     <i class='bx bx-help-circle' ></i>
                                     <span>Logout</span>
                                 </a>
@@ -122,8 +122,8 @@ include '../Backend/pagination.php'
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">
-                        <h3 class="fw-bold fs-4 mb-3" data-aos="fade-down" data-aos-duration="1400">
-                            Selamat Datang Admin di Dashboard
+                        <h3 class="fw-bold fs-4 mb-3" id="nama_user" data-aos="fade-down" data-aos-duration="1400">
+                            
                         </h3>
                         <div class="row">
                             <div class="col-12 col-md-4">
@@ -282,9 +282,62 @@ include '../Backend/pagination.php'
                 </footer>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ offset: 1 });
+
+        // Cek apakah session_token ada di localStorage
+        const sessionToken = localStorage.getItem('session_token');
+
+        if (!sessionToken) {
+            // Jika session_token tidak ada, arahkan ke login
+            window.location.href = 'login.php';
+        } else {
+            // Jika session_token ada, tampilkan nama pengguna
+            const userName = localStorage.getItem('nama');
+            if (userName) {
+                document.getElementById('nama_user').textContent = 'Halo, ' + userName + '!'; 
+            } else {
+                document.getElementById('nama_user').textContent = 'Halo, pengguna!';
+            }
+        }
+
+        // Logout functionality
+        document.getElementById('logout').addEventListener('click', function() {
+            // Ambil session_token dari localStorage
+            const sessionToken = localStorage.getItem('session_token');
+
+            if (!sessionToken) {
+                alert("Anda belum login atau session sudah habis.");
+                window.location.href = 'login.php';
+                return;
+            }
+
+            // Buat objek FormData untuk mengirimkan session_token
+            const formData = new FormData();
+            formData.append('session_token', sessionToken);
+
+            // Kirim request logout ke API logout.php
+            axios.post('../Backend/logout.php', formData)
+                .then(response => {
+                    if (response.data.status === 'success') {
+                        // Menghapus session_token dan nama dari localStorage
+                        localStorage.removeItem('session_token');
+                        localStorage.removeItem('nama');
+                        
+                        // Redirect ke halaman login setelah logout berhasil
+                        window.location.href = 'login.php';
+                    } else {
+                        alert(response.data.message); // Tampilkan pesan error
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan pada server.');
+                });
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
