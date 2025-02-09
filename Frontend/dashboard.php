@@ -1,7 +1,7 @@
 <?php
 include '../Backend/koneksi.php';
 
-$query = "SELECT * FROM tb_barang";
+$query = "SELECT * FROM tb_barang ORDER BY id DESC";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -18,7 +18,7 @@ include '../Backend/pagination.php'
     <title>Halaman Dashboard</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="dashboard_style.css">
+    <link rel="stylesheet" href="../css/dashboard_style.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
@@ -36,7 +36,7 @@ include '../Backend/pagination.php'
             <ul class="sidebar-nav">
                 <li class="sidebar-item" onclick="window.location.href='index.php'">
                     <a href="#" class="sidebar-link">
-                    <i class='bx bxs-user-account'></i>
+                    <i class='bx bxs-home-alt-2'></i>
                     <span>Home</span>
                     </a>
                 </li>
@@ -57,7 +57,7 @@ include '../Backend/pagination.php'
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="#" class="sidebar-link" onclick="window.location.href='hapus.php'">
                                 Hapus Barang
                             </a>
                         </li>
@@ -106,7 +106,7 @@ include '../Backend/pagination.php'
                                     <span>Profile</span>
                                  </a>
                                 <a href="#" class="dropdown-item">
-                                    <i class='bx bx-cog'></i>
+                                <i class='bx bxs-info-circle'></i>
                                     <span>About</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
@@ -195,7 +195,7 @@ include '../Backend/pagination.php'
                                         <table class="table table-striped table-hover table-bordered text-center">
                                             <thead class="table-dark">
                                                 <tr>
-                                                    <th>ID</th>
+                                                    <th>No</th>
                                                     <th>Nama Barang</th>
                                                     <th>Kategori</th>
                                                     <th>Jumlah</th>
@@ -206,9 +206,10 @@ include '../Backend/pagination.php'
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php $no = 1; ?>
                                                 <?php foreach ($barang as $item) : ?>
                                                     <tr>
-                                                        <td><?= htmlspecialchars($item['id']); ?></td>
+                                                        <td><?= $no++; ?></td> <!-- Nomor urut -->
                                                         <td><?= htmlspecialchars($item['nama_barang']); ?></td>
                                                         <td><?= htmlspecialchars($item['kategori']); ?></td>
                                                         <td><?= htmlspecialchars($item['jumlah']); ?></td>

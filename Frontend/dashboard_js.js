@@ -31,50 +31,5 @@ new Chart(document.getElementById("bar-chart-grouped"), {
     }
 });
 
-$(document).ready(function() {
-    let currentPage = 1;
-    let itemsPerPage = 5; 
 
-    function loadTable(page) {
-        $.ajax({
-            url: "ambil_data.php",
-            type: "GET",
-            data: { page: page, itemsPerPage: itemsPerPage },
-            success: function(data) {
-                $("#tableBody").html(data);
-                updatePagination(page);
-            }
-        });
-    }
 
-    function updatePagination(page) {
-        $.ajax({
-            url: "pagination.php",
-            type: "GET",
-            data: { page: page, itemsPerPage: itemsPerPage },
-            success: function(data) {
-                $("#pageNumbers").html(data);
-                $("#prevPage").prop("disabled", page == 1);
-            }
-        });
-    }
-
-    $(document).on("click", ".pagination-btn", function() {
-        currentPage = $(this).data("page");
-        loadTable(currentPage);
-    });
-
-    $("#prevPage").click(function() {
-        if (currentPage > 1) {
-            currentPage--;
-            loadTable(currentPage);
-        }
-    });
-
-    $("#nextPage").click(function() {
-        currentPage++;
-        loadTable(currentPage);
-    });
-
-    loadTable(currentPage);
-});

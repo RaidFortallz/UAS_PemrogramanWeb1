@@ -19,9 +19,11 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="text-center mb-4">Daftar Barang</h2>
+        <div class="d-flex align-items-center justify-content-center position-relative mb-4">
+            <a href="dashboard.php" class="btn btn-secondary position-absolute start-0">Kembali</a>
+            <h2 class="mb-0">Daftar Barang</h2>
+        </div>
 
-        
         <div class="row g-3">
             <?php foreach ($items as $item) : ?>
                 <div class="col-lg-3 col-md-4 col-sm-6">
