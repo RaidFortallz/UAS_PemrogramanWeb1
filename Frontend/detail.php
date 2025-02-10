@@ -1,4 +1,4 @@
-<?php
+<?php 
 include '../Backend/koneksi.php';
 
 if (isset($_GET['id'])) {
@@ -48,8 +48,9 @@ if (isset($_GET['id'])) {
             <div class="img-display">
                 <a href="javascript:history.back()" class="btn btn-primary mb-2">Kembali</a>
                 <div class="img-showcase">
-                    <?php foreach ($gambar_barang as $gambar) : ?>
-                        <img src="../uploads/<?php echo $gambar['gambar']; ?>" alt="Gambar Barang">
+                    <?php foreach ($gambar_barang as $key => $gambar) : ?>
+                        <!-- Only display the first image initially with the class "active" -->
+                        <img src="../uploads/<?php echo $gambar['gambar']; ?>" alt="Gambar Barang" class="<?php echo $key === 0 ? 'active' : ''; ?>">
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -58,7 +59,6 @@ if (isset($_GET['id'])) {
                     <div class="img-item">
                         <a href="#" data-id="<?php echo $key + 1; ?>">
                             <img src="../uploads/<?php echo $gambar['gambar']; ?>" alt="Gambar Thumbnail">
-                            
                         </a>
                     </div>
                 <?php endforeach; ?>
@@ -91,12 +91,15 @@ if (isset($_GET['id'])) {
         </div>
     </div>
 </div>
-<footer class="bg-dark text-light py-4 mt-2">
-    <div class="container text-center">
-        <p class="mb-2">&copy;Copyright by 22552011263_KELOMPOK 5_M Dimas Daniswara Putra_TIF RP 22 CNS_UASWEB1</p>
-        <p class="mb-2">&copy;Copyright by 22552011263_KELOMPOK 5_M Dimas Daniswara Putra_TIF RP 22 CNS_UASWEB1</p>
-        <p class="mb-2">&copy;Copyright by 22552011263_KELOMPOK 5_M Dimas Daniswara Putra_TIF RP 22 CNS_UASWEB1</p>
-        <p class="mb-2">&copy;Copyright by 22552011263_KELOMPOK 5_M Dimas Daniswara Putra_TIF RP 22 CNS_UASWEB1</p>
+<footer id="footer" class="text-center pb-4 mt-5">
+    <p class="mt-5 mb-2">&copy;Copyright by KELOMPOK 7_TIF RP 22 CNS_UASWEB1</p>
+    <div class="anggota-kelompok">
+        <ul class="list-anggota">
+            <li>Ageng Eko Widitya <br> (22552011082)</li>
+            <li>Hikam Sirrul Arifin <br> (22552011066)</li>
+            <li>M Dimas Daniswara Putra <br> (22552011263)</li>
+            <li>Naufal Pratista Sugandhi <br> (22552011077)</li>
+        </ul>
     </div>
 </footer>
 

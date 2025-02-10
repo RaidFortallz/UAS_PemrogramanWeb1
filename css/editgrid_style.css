@@ -78,3 +78,42 @@ h2 {
     }
 }
 }
+
+.footer { 
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    background: #9227fc;
+    color: #000000; /* Mengubah warna teks menjadi hitam */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.footer ul li {
+    color: #000000; /* Mengubah warna teks pada list menjadi hitam */
+}
+
+footer .anggota-kelompok {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+
+footer .list-anggota {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer .list-anggota li {
+    margin: 0 10px;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: #000000; /* Mengubah warna font list anggota menjadi hitam */
+}

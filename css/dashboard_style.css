@@ -306,6 +306,26 @@ footer .list-anggota li {
     border-radius: 5px;
 }
 
+.toast-container {
+    z-index: 1050;
+    width: 300px;
+}
+
+.toast {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.toast-header {
+    background-color: #f5c6cb;
+    color: #721c24;
+}
+
+.toast-body {
+    font-size: 14px;
+}
+
 @media (min-width:768px) {
 
     .input-group-navbar .form-control:focus {

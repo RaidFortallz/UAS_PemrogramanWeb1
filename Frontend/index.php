@@ -39,6 +39,7 @@ $barangRusak = $conn->query("SELECT COUNT(*) FROM tb_barang WHERE kondisi = 'Rus
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link active" href="#banner">HOME</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#info">ABOUT</a></li>
                         <li class="nav-item"><a class="nav-link" href="#tabel">TABEL</a></li>
                         <li class="nav-item"><a class="nav-link" href="#footer">CONTACT</a></li>
                         <li class="nav-item" id="dashboardLink" style="display: none;">

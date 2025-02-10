@@ -1,26 +1,52 @@
-<?php
+<?php 
 include 'koneksi.php';
 
+// Ambil nilai pencarian dari query string jika ada
+$search = isset($_GET['search']) ? "%" . $_GET['search'] . "%" : '';
+
+// Tentukan jumlah item per halaman
 $itemsPerPage = 5;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $itemsPerPage;
 
-// Ambil data barang sesuai halaman
-$query = "SELECT * FROM tb_barang LIMIT $offset, $itemsPerPage";
+// Modifikasi query berdasarkan pencarian
+if ($search != '') {
+    $query = "SELECT * FROM tb_barang WHERE nama_barang LIKE ? LIMIT $offset, $itemsPerPage";
+} else {
+    $query = "SELECT * FROM tb_barang LIMIT $offset, $itemsPerPage";
+}
+
 $stmt = $conn->prepare($query);
-$stmt->execute();
+
+// Eksekusi query dengan parameter pencarian jika ada
+if ($search != '') {
+    $stmt->execute([$search]);
+} else {
+    $stmt->execute(); // Eksekusi tanpa parameter jika tidak ada pencarian
+}
+
 $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Hitung total barang
-$queryCount = "SELECT COUNT(*) as total FROM tb_barang";
-$stmtCount = $conn->prepare($queryCount);
-$stmtCount->execute();
+// Hitung total barang sesuai pencarian
+if ($search != '') {
+    // Jika ada pencarian, hitung total dengan LIKE
+    $queryCount = "SELECT COUNT(*) as total FROM tb_barang WHERE nama_barang LIKE ?";
+    $stmtCount = $conn->prepare($queryCount);
+    $stmtCount->execute([$search]);
+} else {
+    // Jika tidak ada pencarian, hitung total tanpa kondisi LIKE
+    $queryCount = "SELECT COUNT(*) as total FROM tb_barang";
+    $stmtCount = $conn->prepare($queryCount);
+    $stmtCount->execute();
+}
+
 $totalItems = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
 $totalPages = ceil($totalItems / $itemsPerPage);
 
 $no = $offset + 1; // Menentukan nomor urut
 ?>
 
+<!-- Tabel Barang -->
 <table class="table table-striped table-hover table-bordered text-center">
     <thead class="table-dark">
         <tr>

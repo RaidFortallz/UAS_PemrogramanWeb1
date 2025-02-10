@@ -42,6 +42,18 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
+    <footer id="footer" class="text-center pb-4 mt-5">
+        <p class="mt-5 mb-2" style="color: #000000;">&copy;Copyright by KELOMPOK 7_TIF RP 22 CNS_UASWEB1</p>
+        <div class="anggota-kelompok">
+            <ul class="list-anggota">
+                <li>Ageng Eko Widitya <br> (22552011082)</li>
+                <li>Hikam Sirrul Arifin <br> (22552011066)</li>
+                <li>M Dimas Daniswara Putra <br> (22552011263)</li>
+                <li>Naufal Pratista Sugandhi <br> (22552011077)</li>
+            </ul>
+        </div>
+    </footer>
+
     <script>
     $(document).ready(function () {
         $(".hapus-btn").on("click", function (e) {

@@ -32,11 +32,11 @@ $gambarTambahan = $stmtGambar->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Barang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="tambah_style.css">
+    <link rel="stylesheet" href="../css/editgrid_style.css">
 </head>
         <body>
             <div class="container mt-5 position-relative">
-                    <a href="edit_grid.php" class="btn btn-secondary back-btn">← Kembali</a>
+                    <a href="edit_grid.php" class="btn btn-secondary back-btn">⬅ Kembali</a>
                     <h2 class="mb-4">Edit Barang</h2>
                     <div class="row">
                         
@@ -135,8 +135,19 @@ $gambarTambahan = $stmtGambar->fetchAll(PDO::FETCH_ASSOC);
                     </form>
                 </div>
 
-            </body>
+                <footer id="footer" class="text-center pb-4 mt-5">
+                <p class="mt-5 mb-2" style="color: #000000;">&copy;Copyright by KELOMPOK 7_TIF RP 22 CNS_UASWEB1</p>
+                    <div class="anggota-kelompok">
+                        <ul class="list-anggota">
+                            <li>Ageng Eko Widitya <br> (22552011082)</li>
+                            <li>Hikam Sirrul Arifin <br> (22552011066)</li>
+                            <li>M Dimas Daniswara Putra <br> (22552011263)</li>
+                            <li>Naufal Pratista Sugandhi <br> (22552011077)</li>
+                        </ul>
+                    </div>
+                </footer>
 
+            </body>
             
             <script>
             function previewImage(inputId, previewId) {
@@ -217,6 +228,33 @@ $gambarTambahan = $stmtGambar->fetchAll(PDO::FETCH_ASSOC);
 
             // Panggil checkImageLimit saat halaman dimuat untuk memastikan kondisi awal
             window.onload = checkImageLimit;
+
+            document.addEventListener('DOMContentLoaded', (event) => {
+    const anggotaKelompok = document.querySelector('.anggota-kelompok');
+    if (anggotaKelompok) {
+        anggotaKelompok.style.display = 'flex';
+        anggotaKelompok.style.justifyContent = 'center';
+        anggotaKelompok.style.alignItems = 'center';
+        anggotaKelompok.style.flexWrap = 'wrap';
+    }
+    
+    const listAnggota = document.querySelector('.list-anggota');
+    if (listAnggota) {
+        listAnggota.style.display = 'flex';
+        listAnggota.style.justifyContent = 'center';
+        listAnggota.style.alignItems = 'center';
+        listAnggota.style.listStyleType = 'none';
+        listAnggota.style.padding = '0';
+        listAnggota.style.margin = '0';
+
+        const listItems = listAnggota.querySelectorAll('li');
+        listItems.forEach(item => {
+            item.style.margin = '0 30px';  
+            item.style.padding = '5px 10px';
+            item.style.borderRadius = '5px';
+        });
+    }
+});
             </script>
             </html>
 
