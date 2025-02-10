@@ -71,13 +71,13 @@ include 'check_session.php';
                 </li>
                 
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="#" class="sidebar-link" onclick="window.location.href='notifikasi.php'">
                     <i class='bx bxs-bell-ring'></i>
                     <span>Notifikasi</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="#" class="sidebar-link" onclick="window.location.href='setting.php'">
                     <i class='bx bxs-cog'></i>
                     <span>Setting</span>
                     </a>
@@ -107,10 +107,6 @@ include 'check_session.php';
                                 <i class='bx bxs-user-account'></i>
                                     <span>Profile</span>
                                  </a>
-                                <a href="#" class="dropdown-item">
-                                <i class='bx bxs-info-circle'></i>
-                                    <span>About</span>
-                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a href="#" id="logout" class="dropdown-item">
                                 <i class='bx bx-log-out'></i>
