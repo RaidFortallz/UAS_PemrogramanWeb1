@@ -1,0 +1,5 @@
+2025-02-10 12:31:40 - Form submission received.
+2025-02-10 12:31:40 - Received data: {"nama_barang":"jawa2","kategori":"Perabot","jumlah":"40","kondisi":"Baik","lokasi":"Blora","tanggal_masuk":"2025-02-01","deskripsi":"j","harga":"23400"}
+2025-02-10 12:31:40 - Processing main image: akatsuki.png
+2025-02-10 12:31:40 - Main image uploaded successfully.
+2025-02-10 12:31:40 - Barang inserted with ID: 18

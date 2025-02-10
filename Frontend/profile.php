@@ -1,3 +1,7 @@
+<?php
+include 'check_session.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +34,7 @@
             </header>
             <div class="container">
                  <div class="hero-pic">
-                    <img src="../img/account.png" alt="profile pic">
+                    <img src="../img/account.png" id="profilePic" alt="profile pic">
                  </div>
                  <div class="hero-text">
                     <h5>Halo, Saya <span class="input">Admin</span></h5>
@@ -40,8 +44,8 @@
                     <p> Email: <span id="user_email">-</span></p>
 
                     <div class="btn-group">
-                       <a href="#" class="btn active">Edit Profile</a>
-                       <a href="#" class="btn">Kontak</a>
+                       <a href="edit_profile.php" class="btn active">Edit Profile</a>
+                       
                     </div>
 
                     <div class="social">
@@ -58,51 +62,26 @@
 
      <script src="https://cdn.jsdelivr.net/npm/typed.js/2.0.10/typed.min.js"></script>
      <script>
-        function checkSession() {
-            const sessionToken = localStorage.getItem('session_token');
-            console.log("Session Token yang dikirim:", sessionToken);
-
-            const formData = new FormData();
-            formData.append('session_token', sessionToken);
-
-            axios.post('../Backend/session.php', formData)
-                .then(response => {
-                    console.log("Response dari server:", response.data);
-
-                    if (response.data.status === 'success') {
-                        const userData = response.data;
-                        localStorage.setItem('username', userData.username || 'Pengguna');
-                        localStorage.setItem('email', userData.email || '-');
-                        localStorage.setItem('nama', userData.name || '-');
-
-                        console.log("Username disimpan:", localStorage.getItem('username'));
-                        console.log("Email disimpan:", localStorage.getItem('email'));
-                        console.log("Nama disimpan:", localStorage.getItem('nama'));
-
-                        // Panggil fungsi displayProfile setelah data disimpan di localStorage
-                        displayProfile();
-                    } else {
-                        console.log("Gagal, redirect ke login");
-                        window.location.href = 'login.php';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error checking session', error);
-                });
-        }
 
         function displayProfile() {
             const userName = localStorage.getItem('username') || 'Pengguna';
             const userEmail = localStorage.getItem('email') || '-';
             const userFullName = localStorage.getItem('nama') || '-';
+            const userProfilePic = localStorage.getItem('img_user') || '../img/account.png';
 
             document.getElementById('nama_user').textContent = userName; 
             document.getElementById('username_display').textContent = userName;
             document.getElementById('user_email').textContent = userEmail;
             document.getElementById('user_fullname').textContent = userFullName;
+            document.getElementById('profilePic').src = userProfilePic;
 
-            // Inisialisasi Typed.js dengan penundaan
-            setTimeout(() => {
+            console.log("Foto profil ditampilkan:", userProfilePic);
+
+            
+        }
+
+        // Inisialisasi Typed.js dengan penundaan
+        setTimeout(() => {
                 var typed = new Typed(".input", {
                     strings: ["Admin","Manager","Supplier"],
                     typeSpeed: 70,
@@ -110,7 +89,6 @@
                     loop: true
                 });
             });
-        }
 
         // Panggil fungsi checkSession saat halaman dimuat
         window.onload = checkSession;

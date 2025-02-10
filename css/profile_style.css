@@ -134,6 +134,7 @@ nav .navlinks li p {
     height: 100%;
     width: 100%;
     transition: 0.5s;
+    object-fit: cover;
 }
 
 .hero-pic img:hover {

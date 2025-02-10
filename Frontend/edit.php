@@ -104,7 +104,7 @@ $gambarTambahan = $stmtGambar->fetchAll(PDO::FETCH_ASSOC);
                             <div class="col-md-6 right-container">
 
                             <div class="mb-3">
-                                <label for="gambar_utama" class="form-label">Gambar Utama</label>
+                                <label for="gambar_utama" class="form-label">Gambar Thumbnail</label>
                                 <div class="d-flex align-items-center">
                                     <img src="../uploads/<?= htmlspecialchars($item['gambar']); ?>" id="gambar_utama_preview" class="img-thumbnail me-2" width="150">
                                     <input type="file" class="form-control" name="gambar_utama" id="gambar_utama" onchange="previewImage('gambar_utama', 'gambar_utama_preview')">

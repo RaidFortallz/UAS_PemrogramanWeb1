@@ -1,3 +1,7 @@
+<?php
+include 'check_session.php';
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -87,7 +91,15 @@
         </div>
 
         <footer id="footer" class="text-white text-center pb-4 mt-5">
-            <p class="mt-5 mb-2">&copy; Copyright by 22552011263_KELOMPOK 5_M Dimas Daniswara Putra_TIF RP 22 CNS_UASWEB1</p>
+        <p class="mt-5 mb-2">&copy;Copyright by KELOMPOK 7_TIF RP 22 CNS_UASWEB1</p>
+            <div class="anggota-kelompok">
+                <ul class="list-anggota">
+                    <li>Ageng Eko Widitya <br> (22552011082)</li>
+                    <li>Hikam Sirrul Arifin <br> (22552011066)</li>
+                    <li>M Dimas Daniswara Putra <br> (22552011263)</li>
+                    <li>Naufal Pratista Sugandhi <br> (22552011077)</li>
+                </ul>
+            </div>
         </footer>
 
         <script>
@@ -168,6 +180,38 @@
             }
 
             document.getElementById('add-image-btn').addEventListener('click', addImageInput);
+
+            document.addEventListener('DOMContentLoaded', (event) => {
+    const anggotaKelompok = document.querySelector('.anggota-kelompok');
+    if (anggotaKelompok) {
+        anggotaKelompok.style.display = 'flex';
+        anggotaKelompok.style.justifyContent = 'center';
+        anggotaKelompok.style.alignItems = 'center';
+        anggotaKelompok.style.flexWrap = 'wrap';
+    }
+    
+    const listAnggota = document.querySelector('.list-anggota');
+    if (listAnggota) {
+        listAnggota.style.display = 'flex';
+        listAnggota.style.justifyContent = 'center';
+        listAnggota.style.alignItems = 'center';
+        listAnggota.style.listStyleType = 'none';
+        listAnggota.style.padding = '0';
+        listAnggota.style.margin = '0';
+
+        const listItems = listAnggota.querySelectorAll('li');
+        listItems.forEach(item => {
+            item.style.margin = '0 30px';  
+            item.style.padding = '5px 10px';
+            item.style.borderRadius = '5px';
+        });
+    }
+});
+
+function displayProfile() {
+    console.log("displayProfile function dipanggil");
+}
+
         </script>
     </div>
 </body>

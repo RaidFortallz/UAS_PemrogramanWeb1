@@ -13,16 +13,18 @@ try {
         exit;
     }
 
-    $query = $conn->prepare("SELECT name, username, email FROM users WHERE session_token = ?");
+    $query = $conn->prepare("SELECT name, username, email, img_user FROM users WHERE session_token = ?");
     $query->execute([$session_token]);
     $user = $query->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
+
         echo json_encode([
             "status" => "success",
             "name" => $user['name'],
             "username" => $user['username'],
             "email" => $user['email'],
+            "img_user" => $user['img_user']
         ]);
     } else {
         echo json_encode(["status" => "error", "message" => "Session token tidak valid"]);

@@ -86,3 +86,28 @@ footer{
 .img_footer{
     width: 100%;
 }
+
+footer .anggota-kelompok {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+
+footer .list-anggota {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer .list-anggota li {
+    margin: 0 10px;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+

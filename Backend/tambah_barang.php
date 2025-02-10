@@ -1,6 +1,7 @@
 <?php
 include '../Backend/koneksi.php';
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo '<pre>';
     print_r($_FILES);
@@ -60,21 +61,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt_gambar1->bindParam(':gambar', $gambar1);
                     $stmt_gambar1->execute();
 
-                    // Menambahkan gambar lainnya ke tb_gambar_barang
-                    if (isset($gambar_additional['name'])) {
-                        foreach ($gambar_additional['name'] as $index => $gambar_name) {
-                            $gambar_tmp = $gambar_additional['tmp_name'][$index];
-                            $gambar_path = "../uploads/" . basename($gambar_name);
-
-                            if (move_uploaded_file($gambar_tmp, $gambar_path)) {
-                                $query_gambar = "INSERT INTO tb_gambar_barang (barang_id, gambar) VALUES (:barang_id, :gambar)";
-                                $stmt_gambar = $conn->prepare($query_gambar);
-                                $stmt_gambar->bindParam(':barang_id', $barang_id);
-                                $stmt_gambar->bindParam(':gambar', $gambar_name);
-                                $stmt_gambar->execute();
+                    // Mengecek apakah ada gambar tambahan yang diunggah
+                    if (isset($_FILES['gambar_additional']) && count($_FILES['gambar_additional']['name']) > 0) {
+                        foreach ($_FILES['gambar_additional']['tmp_name'] as $key => $tmp_name) {
+                            $file_name = $_FILES['gambar_additional']['name'][$key];
+                            $file_tmp = $_FILES['gambar_additional']['tmp_name'][$key];
+                    
+                            $upload_dir = "uploads/"; // Folder penyimpanan
+                            $upload_path = $upload_dir . basename($file_name);
+                    
+                            if (move_uploaded_file($file_tmp, $upload_path)) {
+                                echo "Gambar tambahan $file_name berhasil diunggah.<br>";
+                            } else {
+                                echo "Gagal mengunggah gambar tambahan $file_name.<br>";
                             }
                         }
+                    } else {
+                        echo "Tidak ada gambar tambahan yang diunggah.<br>";
                     }
+                    
 
                     echo "<script>alert('Barang berhasil ditambahkan!'); window.location.href='../Frontend/dashboard.php';</script>";
                 } else {

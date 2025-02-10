@@ -6,6 +6,13 @@ $stmt = $conn->prepare($query);
 $stmt->execute();
 $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Query untuk statistik
+$totalBarang = $conn->query("SELECT COUNT(*) FROM tb_barang")->fetchColumn();
+$totalKategori = $conn->query("SELECT COUNT(DISTINCT kategori) FROM tb_barang")->fetchColumn();
+$barangRusak = $conn->query("SELECT COUNT(*) FROM tb_barang WHERE kondisi = 'Rusak'")->fetchColumn();
+
+include 'check_session.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +33,7 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <aside id="sidebar">
             <div class="d-flex justify-content-between p-4">
                 <div class="sidebar-logo">
-                    <a href="#">J-Wir Inventaris</a>
+                    <a href="#">StokKu</a>
                 </div>
                 <button class="toggle-btn border-0" type="button">
                 <i id="icon" class='bx bx-chevrons-right'></i>
@@ -76,12 +83,6 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </a>
                 </li>
             </ul>
-            <div class="sidebar-footer">
-                <a href="#" id="logout" class="sidebar-link">
-                <i class='bx bx-log-out'></i>
-                <span>Logout</span>
-                </a>
-            </div>
         </aside>
         <div class="main">
             <nav class="navbar navbar-expand px-4 py-3">
@@ -99,7 +100,7 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown">
                             <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="../img/account.png" class="avatar img-fluid" alt="" data-aos="slide-down" data-aos-duration="1400">
+                                <img src="../img/account.png" id="profilePic" class="avatar img-fluid" alt="" data-aos="slide-down" data-aos-duration="1400">
                             </a>
                             <div class="dropdown-menu dropdown-menu-end rounded-0 border-0 shadow mt-3">
                                 <a href="#" class="dropdown-item" onclick="window.location.href='profile.php'">
@@ -112,7 +113,7 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a href="#" id="logout" class="dropdown-item">
-                                    <i class='bx bx-help-circle' ></i>
+                                <i class='bx bx-log-out'></i>
                                     <span>Logout</span>
                                 </a>
                             </div>
@@ -131,19 +132,12 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="card shadow" data-aos="fade-right" data-aos-duration="1400">
                                     <div class="card-body py-4">
                                         <h6 class="mb-2 fw-bold">
-                                             Total Inventaris
+                                             Total Barang Inventaris
                                         </h6>
                                         <p class="fw-bold mb-2">
-                                        150 item
+                                        <?= $totalBarang ?> item
                                         </p>
-                                        <div class="mb-0">
-                                            <span class="badge text-success me-2">
-                                                +9
-                                            </span>
-                                            <span class="fw-bold">
-                                                Sejak Bulan Lalu
-                                            </span>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -151,19 +145,12 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="card shadow" data-aos="zoom-in" data-aos-duration="1400">
                                     <div class="card-body py-4">
                                         <h6 class="mb-2 fw-bold">
-                                             Barang Habis
+                                             Total Kategori
                                         </h6>
                                         <p class="fw-bold mb-2">
-                                        12 item
+                                        <?= $totalKategori ?> kategori
                                         </p>
-                                        <div class="mb-0">
-                                            <span class="badge text-success me-2">
-                                                -12
-                                            </span>
-                                            <span class="fw-bold">
-                                                Sejak Bulan Lalu
-                                            </span>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -171,19 +158,12 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="card shadow" data-aos="fade-left" data-aos-duration="1400">
                                     <div class="card-body py-4">
                                         <h6 class="mb-2 fw-bold" >
-                                             Kategori Barang
+                                             Barang Rusak
                                         </h6>
                                         <p class="fw-bold mb-2">
-                                            8 kategori
+                                        <?= $barangRusak ?> item
                                         </p>
-                                        <div class="mb-0">
-                                            <span class="badge text-success me-2">
-                                                +1
-                                            </span>
-                                            <span class="fw-bold">
-                                                Sejak Bulan Lalu
-                                            </span>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -216,22 +196,18 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="container-fluid">
                         <div class="row text-body-secondary">
                             <div class="col-12 text-center">
-                                    <p>&copy;Copyright by 22552011263_KELOMPOK 5_M Dimas Daniswara Putra_TIF RP 22 CNS_UASWEB1</p>
-                                </a>
+                            <p class="mt-5 mb-2">&copy;Copyright by KELOMPOK 7_TIF RP 22 CNS_UASWEB1</p>
+                                <div class="anggota-kelompok">
+                                    <ul class="list-anggota">
+                                        <li>Ageng Eko Widitya <br> (22552011082)</li>
+                                        <li>Hikam Sirrul Arifin <br> (22552011066)</li>
+                                        <li>M Dimas Daniswara Putra <br> (22552011263)</li>
+                                        <li>Naufal Pratista Sugandhi <br> (22552011077)</li>
+                                    </ul>
+                                </div>
+                                
                             </div>
-                            <div class="col-12 text-center text-body-secondary d-none d-md-block">
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-body-secondary">Kontak</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-body-secondary">About</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="text-body-secondary">Terms & Conditions</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
                 </footer>
@@ -295,6 +271,12 @@ $barang = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 });
         });
 
+        function displayProfile() {
+            const userProfilePic = localStorage.getItem('img_user') || '../img/account.png';
+            document.getElementById('profilePic').src = userProfilePic;
+
+            console.log("Foto profil ditampilkan:", userProfilePic);
+        }
        
 
 
@@ -352,7 +334,32 @@ document.getElementById("search-barang").addEventListener("input", function () {
     }
 });
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    const anggotaKelompok = document.querySelector('.anggota-kelompok');
+    if (anggotaKelompok) {
+        anggotaKelompok.style.display = 'flex';
+        anggotaKelompok.style.justifyContent = 'center';
+        anggotaKelompok.style.alignItems = 'center';
+        anggotaKelompok.style.flexWrap = 'wrap';
+    }
+    
+    const listAnggota = document.querySelector('.list-anggota');
+    if (listAnggota) {
+        listAnggota.style.display = 'flex';
+        listAnggota.style.justifyContent = 'center';
+        listAnggota.style.alignItems = 'center';
+        listAnggota.style.listStyleType = 'none';
+        listAnggota.style.padding = '0';
+        listAnggota.style.margin = '0';
 
+        const listItems = listAnggota.querySelectorAll('li');
+        listItems.forEach(item => {
+            item.style.margin = '0 30px';  
+            item.style.padding = '5px 10px';
+            item.style.borderRadius = '5px';
+        });
+    }
+});
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

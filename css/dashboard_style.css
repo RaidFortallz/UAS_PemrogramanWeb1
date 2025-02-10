@@ -185,6 +185,17 @@ a.sidebar-link:hover {
     min-width: 200px;
 }
 
+.nav-icon img {
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+    border: 5px solid #444; 
+    
+}
+
+
 .avatar {
     height: 40px;
     width: 40px;
@@ -270,6 +281,29 @@ table {
 footer {
     background-color: #f5f5f5;
     padding: 1rem .875rem;
+}
+
+footer .anggota-kelompok {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+
+footer .list-anggota {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer .list-anggota li {
+    margin: 0 10px;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
 
 @media (min-width:768px) {
